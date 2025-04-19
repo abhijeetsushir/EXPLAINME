@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 
 interface StoredQuestion {
   id: string;
@@ -12,7 +13,7 @@ class QuestionStore {
   static saveQuestion(question: string, explanation: string): void {
     const questions = this.getQuestions();
     questions.push({
-      id: crypto.randomUUID(),
+      id: uuidv4(),
       question,
       explanation,
       timestamp: new Date().toISOString()
