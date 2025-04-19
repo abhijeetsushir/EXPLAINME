@@ -71,3 +71,97 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+
+# Explain It Now AI
+
+A modern web application that uses AI to explain complex topics in simple terms.
+
+## Features
+
+- Ask questions and get AI-powered explanations
+- Save explanations to your library
+- Generate quizzes from your saved explanations
+- Voice input and text-to-speech capabilities
+- Beautiful, responsive UI with dark mode support
+
+## Tech Stack
+
+- **Frontend**: React, TypeScript, Vite, Tailwind CSS, Shadcn UI
+- **Backend**: Node.js, Express
+- **AI**: Groq API with LLaMA 3.3 70B model
+
+## Local Development
+
+### Prerequisites
+
+- Node.js 18+ and npm
+- Groq API key
+
+### Setup
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/ankit609kumar/explain-it-now-ai-50.git
+   cd explain-it-now-ai-50
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   cd backend
+   npm install
+   cd ..
+   ```
+
+3. Create a `.env` file in the root directory with your Groq API key:
+   ```
+   GROQ_API_KEY=your_groq_api_key_here
+   ```
+
+4. Start the development servers:
+   ```bash
+   # Start the backend server
+   cd backend
+   npm run dev
+   
+   # In a new terminal, start the frontend
+   cd ..
+   npm run dev
+   ```
+
+5. Open your browser and navigate to `http://localhost:5173`
+
+## Deployment to Vercel
+
+1. Push your code to GitHub:
+   ```bash
+   git add .
+   git commit -m "Prepare for Vercel deployment"
+   git push
+   ```
+
+2. Go to [Vercel](https://vercel.com) and sign in with your GitHub account
+
+3. Click "Add New" > "Project"
+
+4. Import your GitHub repository
+
+5. Configure the project:
+   - Framework Preset: Vite
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+   - Install Command: `npm install`
+
+6. Add the following environment variable:
+   - Name: `GROQ_API_KEY`
+   - Value: Your Groq API key
+
+7. Click "Deploy"
+
+## Environment Variables
+
+- `GROQ_API_KEY`: Your Groq API key (required)
+
+## License
+
+MIT

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Mic, Volume2, BookmarkPlus, Send, BookOpen, Youtube } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
@@ -8,6 +7,11 @@ import LoadingAnimation from '@/components/common/LoadingAnimation';
 import { useToast } from "@/hooks/use-toast";
 import FeatureSelector, { FeatureToggles } from '@/components/features/FeatureSelector';
 import QuestionStore from '@/utils/questionStore';
+
+// API URL configuration
+const API_BASE_URL = process.env.NODE_ENV === 'production' 
+  ? '' // Empty string for same-origin requests in production
+  : 'http://localhost:5000';
 
 const AskPage = () => {
   const [topic, setTopic] = useState('');
@@ -37,7 +41,7 @@ const AskPage = () => {
   useEffect(() => {
     const checkBackendHealth = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/health');
+        const response = await fetch(`${API_BASE_URL}/api/health`);
         if (response.ok) {
           const data = await response.json();
           if (data.api_key_configured) {
@@ -58,7 +62,7 @@ const AskPage = () => {
         setBackendStatus('offline');
         toast({
           title: "Backend Offline",
-          description: "The backend server is not responding. Make sure it's running on port 5000.",
+          description: "The backend server is not responding. Please try again later.",
           variant: "destructive",
         });
       }
@@ -86,7 +90,7 @@ const AskPage = () => {
     if (backendStatus === 'offline') {
       toast({
         title: "Backend Offline",
-        description: "Cannot send your question because the backend is offline. Please make sure the backend server is running.",
+        description: "Cannot send your question because the backend is offline. Please try again later.",
         variant: "destructive",
       });
       return;
@@ -95,7 +99,7 @@ const AskPage = () => {
     setIsLoading(true);
     try {
       console.log("Sending request to backend:", topic);
-      const response = await fetch('http://localhost:5000/api/chat', {
+      const response = await fetch(`${API_BASE_URL}/api/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

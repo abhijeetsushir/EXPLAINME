@@ -4,10 +4,9 @@ import dotenv from 'dotenv';
 import Groq from 'groq-sdk';
 
 // Load environment variables
-dotenv.config({ path: '../.env' });
+dotenv.config();
 
 const app = express();
-const port = 5000;
 
 // Initialize Groq client
 const groq = new Groq({
@@ -71,7 +70,13 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
-// Start server
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-}); 
+// For local development
+if (process.env.NODE_ENV !== 'production') {
+  const port = 5000;
+  app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
+  });
+}
+
+// Export for Vercel
+export default app; 
